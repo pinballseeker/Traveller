@@ -37,4 +37,4 @@ And here's what each setting is for:
 - country: the country you are visiting (basically just for the widget heading)
 - moneyValues: 8 values in the foreign currency that will be shown and converted
 
-That's basically it. Hopefully this will help you getting ripped off the next time you're on the road!
+That's basically it. Hopefully this will help you to avoid getting ripped off the next time you're on the road!
