@@ -28,16 +28,6 @@ const scriptParams = {
 	moneyValues: [100,250,500,750,1000,2500,5000,10000]
 }
 
-const widgetParams = args.widgetParameter ? JSON.parse(args.widgetParameter) : undefined;
-let storedParams;
-try {
-	storedParams = jsonFileManager.read(Script.name() + ".json");
-} catch (err) {
-	console.log(err);
-}
-const params = widgetParams || storedParams || scriptParams;
-
-
 /**
  * Class that can read and write JSON objects using the file system.
  *
@@ -50,6 +40,16 @@ const params = widgetParams || storedParams || scriptParams;
  */
 class JSONFileManager{write(e,r){const t=this.getFileManager(),i=this.getCurrentDir()+e,l=e.split("/");if(l>1){const e=l[l.length-1],r=i.replace("/"+e,"");t.createDirectory(r,!0)}if(t.fileExists(i)&&t.isDirectory(i))throw"JSON file is a directory, please delete!";t.writeString(i,JSON.stringify(r))}read(e){const r=this.getFileManager(),t=this.getCurrentDir()+e;if(!r.fileExists(t))throw"JSON file does not exist! Could not load: "+t;if(r.isDirectory(t))throw"JSON file is a directory! Could not load: "+t;r.downloadFileFromiCloud(t);const i=JSON.parse(r.readString(t));if(null!==i)return i;throw"Could not read file as JSON! Could not load: "+t}getFileManager(){try{return FileManager.iCloud()}catch(e){return FileManager.local()}}getCurrentDir(){const e=this.getFileManager(),r=module.filename;return r.replace(e.fileName(r,!0),"")}}
 const jsonFileManager = new JSONFileManager();
+
+const widgetParams = args.widgetParameter ? JSON.parse(args.widgetParameter) : undefined;
+let storedParams;
+try {
+	storedParams = jsonFileManager.read(Script.name() + ".json");
+} catch (err) {
+	console.log(err);
+}
+const params = widgetParams || storedParams || scriptParams;
+
 
 /**
  * Method to get JSON results from API call
